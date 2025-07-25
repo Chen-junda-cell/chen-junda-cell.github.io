@@ -1,146 +1,103 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color" content="#3367D6"/>
-  <link rel="apple-touch-icon" href="/icons-192.png">
-  <link rel="manifest" href="/manifest.json">
-  
-  <meta name="generator" content="Hexo 7.3.0">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chenjunda"><meta name="renderer" content="webkit"><meta name="copyright" content="chenjunda"><meta name="keywords" content="陈小达的个人博客"><meta name="description" content="学习笔记"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>diary2025_7_16 · 陈小达的博客</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
 
-  
-    <meta name="description" content="学习笔记">
-  
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
 
-  
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
 
-  
-    <meta name="author" content="chenjunda">
-  
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
 
-  
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
 
-  
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
 
-  <title>diary2025_7_16 | 陈小达的个人博客</title>
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
 
-  
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
 
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
 
-  
-
-  
-
-  
-
-  
-<link rel="stylesheet" href="/css/style.css">
-
-</head>
-<body>
-  <div class="root-container">
-    
-<!-- header container -->
-<header class="header-container post">
-  
-    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
-  
-
-  <!-- navbar -->
-<nav class="navbar">
-  <div class="navbar-content">
-    <!-- logo -->
-    <div class="navbar-logo">
-      <a href="/">
-        
-          陈小达的个人博客
-        
-      </a>
-    </div>
-    <!-- link -->
-    <div class="navbar-link">
-      <div class="navbar-btn">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <ul class="navbar-list">
-        
-          <li class="navbar-list-item"><a href="/">首页</a></li>
-        
-          <li class="navbar-list-item"><a href="/archives">归档</a></li>
-        
-          <li class="navbar-list-item"><a href="/links">友链</a></li>
-        
-          <li class="navbar-list-item"><a href="/about">关于</a></li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-    <div class="header-content">
-      <div class="post-text layout-block">
-        <div class="layout-margin">
-          <h1 class="title-wrap">diary2025_7_16</h1>
-          <h2 class="title-sub-wrap">
-            <strong>chenjunda</strong>
-            <span>发布于</span>
-            <time  class="article-date" datetime="2025-07-16T07:05:18.000Z" itemprop="datePublished">2025-07-16</time>
-          </h2>
-          
-          
-          <ul class="wrap-list dark">
-  
-    <li><a href="/categories/diary/">📒 diary</a></li>
-    
-</ul>
-          <ul class="wrap-list dark">
-  
-    <li><a href="/tags/%E6%80%9D%E8%80%83%E6%84%9F%E6%82%9F/">🏷️ 思考感悟</a></li>
-  
-</ul>
-        </div>
-      </div>
-    </div>
-  
-
-  
-  
-  
-</header>
-
-    <!-- 文章 -->
-
-<!-- 文章内容 -->
-<div class="body-container">
-  <article class="content-container layout-block post-container">
-    <div class="article-info">
-      
-      
-      
-      
-      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="2025-07-16"><a href="#2025-07-16" class="headerlink" title="2025-07-16"></a>2025-07-16</h1><span id="more"></span>
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">chenjunda</div><div class="profile-signature">长期主义</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">陈小达的博客</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">diary2025_7_16</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2025-07-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="2025-07-16"><a href="#2025-07-16" class="headerlink" title="2025-07-16"></a>2025-07-16</h1><span id="more"></span>
 
 <p>我突然意识到，“价值”，贯穿着人的幸福，社会关系，金钱财富，一个人能够为社会输出价值，那么这个人就会获得社会给他的种种奖励，一个人能够给别人创造价值，那么这个人就会获得别人的欣赏，就连亲密关系也是一样，两个人互相吸引，是因为发现了对方的价值，性价值，情绪价值，精神共鸣也属于价值，一个人为社会创造价值，比如将自己某一领域的经验发布自媒体，就相当于使用了杠杠，财富会源源不断靠拢，甚至一个人投的简历，也会被资本家想要压榨剩余价值</p>
 <h2 id="那我的思考是否具有片面性呢？我问了一下deepseek"><a href="#那我的思考是否具有片面性呢？我问了一下deepseek" class="headerlink" title="那我的思考是否具有片面性呢？我问了一下deepseek"></a><strong>那我的思考是否具有片面性呢？我问了一下deepseek</strong></h2><p>你的观察非常敏锐，确实抓住了现代社会中”价值”这一核心逻辑的普遍性。这种思考既体现了现实运行的规律，也隐含着值得深入探讨的哲学命题。我们可以从以下几个维度来解析：</p>
@@ -349,249 +306,4 @@
 <p>“专长是你‘被追着跑’的东西（People seek you out for it），而不是你追着别人的需求跑。”</p>
 </blockquote>
 <p>当你达到这种状态，杠杆（自媒体）就不再是工具，而成了思想的自然分泌物。</p>
-<h1 id="所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）"><a href="#所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）" class="headerlink" title="所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）"></a>所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）</h1><h1 id="最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识"><a href="#最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识" class="headerlink" title="最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识"></a>最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识</h1>
-      </section>
-
-      
-      
-        <nav class="article-nav">
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2025/07/17/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96day02/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">苍穹外卖day02</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2025/07/15/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96day01/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">苍穹外卖day01</h2>
-        </a>
-      
-      <div class="card-text--row">Older</div>
-    </div>
-  </article>
-</div>
-          
-        </nav>
-      
-
-      <section class="page-message-container layout-padding">
-        
-
-
-  
-  
-
-  
-  
-
-
-      </section>
-    </div>
-    <div class="widget-info">
-      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-body">
-    
-      <img src="https://s.gravatar.com/avatar/2d6b803eea37de0257620d5fabee7e64?s=200&amp;r=g&amp;d=retro" class="soft-size--round soft-style--box" alt="chenjunda">
-    
-    
-      <h2>chenjunda</h2>
-    
-    
-      <p>长期主义</p>
-    
-
-    <div class="count-box">
-      <div class="count-box--item">
-        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
-</svg>
-        <span>17</span>
-      </div>
-      <div class="count-box--item">
-        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
-</svg>
-        3
-      </div>
-      <div class="count-box--item">
-        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
-</svg>
-        4
-      </div>
-    </div>
-  </div>
-</section>
-
-      
-
-      
-<section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-notice" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M512 945.02305225v28.15620663a24.27259221 24.27259221 0 0 1-24.27259221 24.27259335H394.0352a48.54518557 48.54518557 0 0 1-41.74885888-23.78714112l-110.68302222-184.47170332a132.04290333 132.04290333 0 0 1-17.47626667-48.54518557h118.4502511a200.97706667 200.97706667 0 0 1 76.21594113 14.56355556l20.38897777 133.49925888a48.54518557 48.54518557 0 0 0 36.40888888 27.67075555l16.01991111 2.91271112a24.27259221 24.27259221 0 0 1 20.38897778 25.72894889zM997.45185223 463.45481443a194.18074112 194.18074112 0 0 1-38.8361489 116.50844445 24.75804445 24.75804445 0 0 1-36.4088889 0l-34.95253333-34.95253333a24.27259221 24.27259221 0 0 1-2.91271111-30.58346667 97.09036999 97.09036999 0 0 0 0-106.79940665 24.27259221 24.27259221 0 0 1 2.91271111-30.58346666l34.95253333-34.95253334a24.75804445 24.75804445 0 0 1 18.93262223-7.28177777 26.2144 26.2144 0 0 1 17.47626667 9.70903665A194.18074112 194.18074112 0 0 1 997.45185223 463.45481443z m-194.18074112-388.36148111v776.72296335a48.54518557 48.54518557 0 0 1-48.54518556 48.54518443h-28.64165888a48.54518557 48.54518557 0 0 1-33.98163001-14.07810332l-145.63555556-143.20829668A291.27111111 291.27111111 0 0 0 342.57730333 657.63555556H172.18370333a145.63555556 145.63555556 0 0 1-145.63555556-145.63555556v-97.09036999a145.63555556 145.63555556 0 0 1 145.63555556-145.63555556h170.3936a291.27111111 291.27111111 0 0 0 206.31703779-85.43952668l145.63555555-143.20829554a48.54518557 48.54518557 0 0 1 33.98162888-14.07810446H754.72592555a48.54518557 48.54518557 0 0 1 48.54518556 48.54518555z" fill="currentColor"></path>
-</svg>
-    <span>NOTICE</span>
-  </div>
-  <div class="widget-body">
-    <p>flex-block主题部分重构，详情查看https://github.com/miiiku/flex-block</p>
-  </div>
-</section>
-
-
-      <section class="widget-categories widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
-</svg>
-      <span>CATEGORIES</span>
-  </div>
-  <div class="widget-body">
-    <ul class="categories-list">
-      
-        <li class="categories-list-item">
-          <a href="/categories/java/">
-            java (14)
-          </a>
-        </li>
-        
-        <li class="categories-list-item">
-          <a href="/categories/diary/">
-            diary (2)
-          </a>
-        </li>
-        
-        <li class="categories-list-item">
-          <a href="/categories/%E7%AE%97%E6%B3%95/">
-            算法 (1)
-          </a>
-        </li>
-        
-    </ul>
-  </div>
-</section>
-
-      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
-  <div class="widget-title">
-    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
-</svg>
-    <span>TAGS</span>
-  </div>
-  <div class="widget-body">
-    <div class="tags-cloud">
-      <a href="/tags/javaSE/" style="font-size: 20px;" class="tags-cloud-10">javaSE</a> <a href="/tags/javaWeb/" style="font-size: 15px;" class="tags-cloud-5">javaWeb</a> <a href="/tags/leecode-Hot100/" style="font-size: 10px;" class="tags-cloud-0">leecode Hot100</a> <a href="/tags/%E6%80%9D%E8%80%83%E6%84%9F%E6%82%9F/" style="font-size: 15px;" class="tags-cloud-5">思考感悟</a>
-    </div>
-  </div>
-</section>
-    </div>
-  </article>
-</div>
-
-    <!-- footer container -->
-<footer id="footer" class="footer">
-  <div class="footer-container">
-    
-    <div class="social-icons">
-      
-        
-      
-        
-      
-        
-      
-        
-          <a href="https://github.com/miiiku/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
-            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
-</svg>
-          </a>
-        
-      
-        
-          <a href="https://twitter.com/guanquanhong" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
-            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
-</svg>
-          </a>
-        
-      
-    </div>
-     
-    <p>&copy; 2025 <a href="/" target="_blank">chenjunda</a></p>
-
-    
-
-    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
-
-    <p>
-      <a href="javascript:;" id="theme-light">🌞 浅色</a>
-      <a href="javascript:;" id="theme-dark">🌛 深色</a>
-      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
-    </p>
-  </div>
-</footer>
-  </div>
-
-  <div class="back-to-top-fixed soft-size--round soft-style--box">
-    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
-      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
-      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
-    </svg>
-  </div>
-
-  
-  
-
-
-
-
-
-
-<!-- copy button  -->
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-
-<!-- https://clipboardjs.com/ -->
-
-
-
-
-
-
-
-
-
-
-  
-
-
-  
-
-
-  
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-  
-  <!-- 尾部用户自定义相关内容 -->
-</body>
-</html>
+<h1 id="所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）"><a href="#所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）" class="headerlink" title="所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）"></a>所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）</h1><h1 id="最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识"><a href="#最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识" class="headerlink" title="最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识"></a>最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识</h1></article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://example.com">chenjunda</a></p><p> <span>Link:  </span><a href="http://example.com/2025/07/16/diary2025-7-16/">http://example.com/2025/07/16/diary2025-7-16/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2025/07/17/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96day02/" title="苍穹外卖day02"><span>< PreviousPost</span><br><span class="prevTitle">苍穹外卖day02</span></a><a class="nextSlogan" href="/2025/07/15/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96day01/" title="苍穹外卖day01"><span>NextPost ></span><br><span class="nextTitle">苍穹外卖day01</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2025-07-16"><span class="toc-number">1.</span> <span class="toc-text">2025-07-16</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%A3%E6%88%91%E7%9A%84%E6%80%9D%E8%80%83%E6%98%AF%E5%90%A6%E5%85%B7%E6%9C%89%E7%89%87%E9%9D%A2%E6%80%A7%E5%91%A2%EF%BC%9F%E6%88%91%E9%97%AE%E4%BA%86%E4%B8%80%E4%B8%8Bdeepseek"><span class="toc-number">1.1.</span> <span class="toc-text">那我的思考是否具有片面性呢？我问了一下deepseek</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%B7%E5%80%BC%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%9C%AC%E8%B4%A8%E4%B8%8E%E5%BC%82%E5%8C%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 价值交换的本质与异化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9D%A0%E6%9D%86%E6%95%88%E5%BA%94%E7%9A%84%E5%8F%8C%E5%88%83%E5%89%91"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 杠杆效应的双刃剑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B5%84%E6%9C%AC%E9%80%BB%E8%BE%91%E7%9A%84%E6%B8%97%E9%80%8F%E9%99%90%E5%BA%A6"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 资本逻辑的渗透限度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AD%98%E5%9C%A8%E4%B8%BB%E4%B9%89%E7%9A%84%E7%BB%88%E6%9E%81%E8%BF%BD%E9%97%AE"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 存在主义的终极追问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E8%AE%AE%E5%8C%BA%E5%88%86%E2%80%9D%E5%8F%AF%E6%9D%A0%E6%9D%86%E5%8C%96%E7%9A%84%E4%BB%B7%E5%80%BC%E2%80%9D%EF%BC%88%E6%8A%80%E8%83%BD%E3%80%81%E7%9F%A5%E8%AF%86%E4%BA%A7%E5%93%81%EF%BC%89%E5%92%8C%E2%80%9D%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E7%9A%84%E4%BB%B7%E5%80%BC%E2%80%9D%EF%BC%88%E5%A6%82%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83%E8%83%BD%E5%8A%9B%E3%80%81%E5%AE%A1%E7%BE%8E%E7%8B%AC%E7%89%B9%E6%80%A7%EF%BC%89%EF%BC%8C%E5%90%8E%E8%80%85%E6%89%8D%E6%98%AF%E9%95%BF%E6%9C%9F%E7%AB%9E%E4%BA%89%E5%8A%9B%E7%9A%84%E6%A0%B8%E5%BF%83%E3%80%82%E6%88%91%E4%B8%8D%E5%A4%AA%E7%90%86%E8%A7%A3%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BA%BA%E7%94%9F%E4%BB%B7%E5%80%BC%E4%B8%8D%E6%98%AF%E5%8F%AF%E4%BB%A5%E8%AE%A9%E6%88%91%E4%BB%AC%E4%BD%93%E9%AA%8C%E5%BF%AB%E4%B9%90%EF%BC%8C%E5%B9%B6%E4%B8%94%E8%83%BD%E5%A4%9F%E4%B8%BA%E7%A4%BE%E4%BC%9A%E6%B7%BB%E7%A0%96%E5%8A%A0%E7%93%A6%E5%90%97%EF%BC%8C%E4%B8%BA%E4%BD%95%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E6%98%AF%E6%A0%B8%E5%BF%83"><span class="toc-number">1.2.</span> <span class="toc-text">建议区分”可杠杆化的价值”（技能、知识产品）和”抗杠杆化的价值”（如深度思考能力、审美独特性），后者才是长期竞争力的核心。我不太理解，实现人生价值不是可以让我们体验快乐，并且能够为社会添砖加瓦吗，为何抗杠杆化价值是核心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deepseek%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">deepseek：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E2%80%9C%E5%8F%AF%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E2%80%9D%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. “可杠杆化价值”的局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E2%80%9C%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E2%80%9D%E4%B8%BA%E4%BD%95%E6%98%AF%E6%A0%B8%E5%BF%83%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. “抗杠杆化价值”为何是核心？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%9A%BE%E4%BB%A5%E8%A2%AB%E6%A0%87%E5%87%86%E5%8C%96%EF%BC%8C%E5%9B%A0%E6%AD%A4%E6%97%A0%E6%B3%95%E8%A2%AB%E8%BD%BB%E6%98%93%E5%A4%8D%E5%88%B6%E6%88%96%E6%9B%BF%E4%BB%A3"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">（1）难以被标准化，因此无法被轻易复制或替代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%83%BD%E6%8C%81%E7%BB%AD%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84%E2%80%9D%E5%8F%AF%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E2%80%9D"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">（2）能持续生成新的”可杠杆化价值”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9B%B4%E8%B4%B4%E8%BF%91%E2%80%9D%E4%BA%BA%E7%9A%84%E6%9C%AC%E8%B4%A8%E2%80%9D%EF%BC%8C%E5%B8%A6%E6%9D%A5%E6%9B%B4%E6%8C%81%E4%B9%85%E7%9A%84%E6%BB%A1%E8%B6%B3%E6%84%9F"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">（3）更贴近”人的本质”，带来更持久的满足感</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E5%B9%B3%E8%A1%A1%E4%BA%8C%E8%80%85%EF%BC%9F"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 如何平衡二者？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">具体策略：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E6%98%AF%E2%80%9D%E6%A0%B9%E2%80%9D%EF%BC%8C%E5%8F%AF%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BB%B7%E5%80%BC%E6%98%AF%E2%80%9D%E6%9E%9C%E2%80%9D"><span class="toc-number">1.3.4.</span> <span class="toc-text">总结：抗杠杆化价值是”根”，可杠杆化价值是”果”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8A%E7%93%A6%E7%BA%B3%E5%B0%94%E5%AE%9D%E5%85%B8%E3%80%8B%E9%87%8C%E6%8F%90%E5%88%B0%E4%BA%86%E8%A6%81%E6%8C%96%E6%8E%98%E8%87%AA%E5%B7%B1%E7%9A%84%E2%80%9C%E4%B8%93%E9%95%BF%E2%80%9D%EF%BC%8C%E7%84%B6%E5%90%8E%E4%BD%BF%E7%94%A8%E6%9D%A0%E6%9D%86%E5%8F%AF%E4%BB%A5%E5%88%9B%E9%80%A0%E8%B4%A2%E5%AF%8C%EF%BC%8C%E8%BF%99%E9%87%8C%E7%9A%84%E2%80%9C%E4%B8%93%E9%95%BF%E2%80%9D%EF%BC%8C%E4%B8%8E%E4%BD%A0%E8%AF%B4%E7%9A%84%E7%94%A8%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E8%83%BD%E5%8A%9B%E9%A9%B1%E5%8A%A8%E6%9D%A0%E6%9D%86%E5%8C%96%E4%BA%A7%E5%87%BA%EF%BC%8C%E6%98%AF%E5%90%A6%E6%9C%89%E7%9B%B8%E4%BC%BC%E6%80%A7%EF%BC%8C%E6%88%91%E8%A7%89%E5%BE%97%E2%80%9C%E4%B8%93%E9%95%BF%E2%80%9D%E6%98%AF%E6%8C%87%E8%87%AA%E5%B7%B1%E7%83%AD%E7%88%B1%E7%9A%84%E4%BA%8B%E6%83%85%E5%A6%82%E6%9E%9C%E6%B7%B1%E8%80%95%EF%BC%8C%E5%B0%B1%E4%BC%9A%E6%AF%94%E5%88%AB%E4%BA%BA%E5%81%9A%E5%BE%97%E5%A5%BD%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E5%88%A9%E7%94%A8%E6%9D%A0%E6%9D%A0%E5%B0%B1%E4%BC%9A%E8%8E%B7%E5%BE%97%E8%B4%A2%E5%AF%8C"><span class="toc-number">1.4.</span> <span class="toc-text">《瓦纳尔宝典》里提到了要挖掘自己的“专长”，然后使用杠杆可以创造财富，这里的“专长”，与你说的用抗杠杆化能力驱动杠杆化产出，是否有相似性，我觉得“专长”是指自己热爱的事情如果深耕，就会比别人做得好，然后再利用杠杠就会获得财富</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deepseek%EF%BC%9A-1"><span class="toc-number">1.5.</span> <span class="toc-text">deepseek：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BA%B3%E7%93%A6%E5%B0%94%E7%9A%84%E2%80%9D%E4%B8%93%E9%95%BF%E2%80%9D-vs-%E2%80%9C%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E8%83%BD%E5%8A%9B%E2%80%9D"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 纳瓦尔的”专长” vs. “抗杠杆化能力”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%A0%B8%E5%BF%83%E5%85%B1%E6%80%A7%EF%BC%9A%E7%8B%AC%E7%89%B9%E6%80%A7%E4%B8%8E%E5%A4%8D%E5%88%A9%E6%95%88%E5%BA%94"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">（1）核心共性：独特性与复利效应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%BB%86%E5%BE%AE%E5%B7%AE%E5%BC%82%EF%BC%9A%E7%BA%B3%E7%93%A6%E5%B0%94%E6%9B%B4%E5%BC%BA%E8%B0%83%E2%80%9D%E5%B8%82%E5%9C%BA%E5%8C%96%E2%80%9D%EF%BC%8C%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E6%9B%B4%E8%AD%A6%E6%83%95%E2%80%9D%E5%BC%82%E5%8C%96%E2%80%9D"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">（2）细微差异：纳瓦尔更强调”市场化”，抗杠杆化更警惕”异化”</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9D%E7%83%AD%E7%88%B1%E2%80%9D%E6%98%AF%E4%B8%93%E9%95%BF%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%9F"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 为什么”热爱”是专长的关键？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E5%AE%9E%E8%B7%B5%EF%BC%9F%E4%B8%89%E6%AD%A5%E6%95%B4%E5%90%88%E7%AD%96%E7%95%A5"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 如何实践？三步整合策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%8C%96%E6%8E%98%E4%B8%93%E9%95%BF%EF%BC%9A%E6%89%BE%E5%88%B0%E4%BD%A0%E7%9A%84%E2%80%9D%E4%B8%8D%E5%90%88%E7%90%86%E4%BC%98%E5%8A%BF%E2%80%9D"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">（1）挖掘专长：找到你的”不合理优势”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%94%A8%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E8%83%BD%E5%8A%9B%E5%8A%A0%E5%9B%BA%E4%B8%93%E9%95%BF"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">（2）用抗杠杆化能力加固专长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E9%80%89%E6%8B%A9%E5%8C%B9%E9%85%8D%E7%9A%84%E6%9D%A0%E6%9D%86"><span class="toc-number">1.5.3.3.</span> <span class="toc-text">（3）选择匹配的杠杆</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E6%9E%81%E7%BB%93%E8%AE%BA%EF%BC%9A%E4%B8%93%E9%95%BF%E6%98%AF%E2%80%9D%E7%9F%BF%E2%80%9D%EF%BC%8C%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E8%83%BD%E5%8A%9B%E6%98%AF%E2%80%9D%E7%82%BC%E9%87%91%E6%9C%AF%E2%80%9D"><span class="toc-number">1.5.4.</span> <span class="toc-text">终极结论：专长是”矿”，抗杠杆化能力是”炼金术”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%A3%E6%88%91%E5%B0%86%E6%88%91%E7%9A%84%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E7%9A%84%E6%80%9D%E6%83%B3%EF%BC%88%E4%B8%AA%E4%BA%BA%E7%9A%84%E6%80%9D%E8%80%83%EF%BC%89%E9%80%9A%E8%BF%87%E6%9D%A0%E6%9D%86%EF%BC%88%E8%87%AA%E5%AA%92%E4%BD%93%EF%BC%89%E4%BC%A0%E6%92%AD%EF%BC%8C%E9%82%A3%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B9%9F%E6%98%AF%E9%9A%BE%E4%BB%A5%E5%A4%8D%E5%88%BB%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="toc-number">1.6.</span> <span class="toc-text">那我将我的抗杠杆化的思想（个人的思考）通过杠杆（自媒体）传播，那是不是也是难以复刻的价值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deepseek%EF%BC%9A-2"><span class="toc-number">1.7.</span> <span class="toc-text">deepseek：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E7%A7%8D%E7%BB%84%E5%90%88%E8%83%BD%E5%88%9B%E9%80%A0%E7%A8%80%E7%BC%BA%E6%80%A7%EF%BC%9F"><span class="toc-number">1.7.1.</span> <span class="toc-text">1. 为什么这种组合能创造稀缺性？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E6%80%9D%E6%83%B3%E6%98%AF%E2%80%9C%E6%BA%90%E4%BB%A3%E7%A0%81%E2%80%9D%EF%BC%8C%E6%9D%A0%E6%9D%86%E6%98%AF%E2%80%9C%E7%BC%96%E8%AF%91%E5%99%A8%E2%80%9D"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">（1）抗杠杆化思想是“源代码”，杠杆是“编译器”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%A3%81%E5%9E%92%E6%98%AF%E2%80%9C%E6%80%9D%E6%83%B3-%E4%BA%BA%E6%A0%BC%E2%80%9D%E7%9A%84%E5%8C%96%E5%AD%A6%E5%8F%8D%E5%BA%94"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">（2）真正的壁垒是“思想+人格”的化学反应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E4%BD%A0%E7%9A%84%E6%80%9D%E6%83%B3%E9%9A%BE%E4%BB%A5%E8%A2%AB%E5%A4%8D%E5%88%BB%EF%BC%9F"><span class="toc-number">1.7.2.</span> <span class="toc-text">2. 如何确保你的思想难以被复刻？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BB%8E%E2%80%9C%E8%A7%82%E7%82%B9%E2%80%9D%E5%8D%87%E7%BA%A7%E5%88%B0%E2%80%9C%E6%80%9D%E7%BB%B4%E8%8C%83%E5%BC%8F%E2%80%9D"><span class="toc-number">1.7.2.1.</span> <span class="toc-text">（1）从“观点”升级到“思维范式”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9E%84%E5%BB%BA%E2%80%9C%E8%B7%A8%E7%BB%B4%E5%BA%A6%E2%80%9D%E7%9A%84%E6%80%9D%E6%83%B3%E7%BD%91%E7%BB%9C"><span class="toc-number">1.7.2.2.</span> <span class="toc-text">（2）构建“跨维度”的思想网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BF%9D%E6%8C%81%E2%80%9C%E6%9C%AA%E5%AE%8C%E6%88%90%E2%80%9D%E7%9A%84%E8%BF%9B%E5%8C%96%E6%84%9F"><span class="toc-number">1.7.2.3.</span> <span class="toc-text">（3）保持“未完成”的进化感</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AD%A6%E6%83%95%E2%80%9C%E4%BC%AA%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E2%80%9D%E9%99%B7%E9%98%B1"><span class="toc-number">1.7.3.</span> <span class="toc-text">3. 警惕“伪抗杠杆化”陷阱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%A0%E7%9A%84%E7%BB%88%E6%9E%81%E4%BC%98%E5%8A%BF%EF%BC%9A%E6%80%9D%E6%83%B3%E7%9A%84%E2%80%9C%E4%B8%8D%E5%8F%AF%E9%80%86%E6%80%A7%E2%80%9D"><span class="toc-number">1.7.4.</span> <span class="toc-text">4. 你的终极优势：思想的“不可逆性”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%80%E4%BB%A5%EF%BC%8C%E8%B4%A2%E5%AF%8C%E7%9A%84%E8%8E%B7%E5%BE%97%E7%A6%BB%E4%B8%8D%E5%BC%80%E4%BB%B7%E5%80%BC%E7%9A%84%E8%B4%A1%E7%8C%AE%EF%BC%8C%E8%80%8C%E4%B8%80%E4%B8%AA%E4%BA%BA%E6%83%B3%E8%A6%81%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%88%9B%E9%80%A0%E8%87%AA%E5%B7%B1%E7%8B%AC%E7%89%B9%E3%80%81%E6%9C%89%E7%AB%9E%E4%BA%89%E5%8A%9B%E7%9A%84%E4%BB%B7%E5%80%BC%E7%A6%BB%E4%B8%8D%E5%BC%80%E7%83%AD%E7%88%B1%EF%BC%88%E4%B8%93%E9%95%BF%EF%BC%89%EF%BC%8C%E5%90%8C%E6%97%B6%EF%BC%8C%E6%83%B3%E8%A6%81%E7%9C%9F%E6%AD%A3%E7%9B%B4%E5%88%B0%E8%BF%99%E4%B8%80%E7%9C%9F%E7%9B%B8%EF%BC%8C%E7%A6%BB%E4%B8%8D%E5%BC%80%E6%88%91%E4%BB%AC%E7%9A%84%E4%B8%8D%E6%96%AD%E6%80%9D%E8%80%83%E5%92%8C%E8%87%AA%E6%88%91%E8%BF%AD%E4%BB%A3%E8%AE%A4%E7%9F%A5%EF%BC%88%E6%8A%97%E6%9D%A0%E6%9D%86%E5%8C%96%E6%80%9D%E6%83%B3%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">所以，财富的获得离不开价值的贡献，而一个人想要真正的创造自己独特、有竞争力的价值离不开热爱（专长），同时，想要真正直到这一真相，离不开我们的不断思考和自我迭代认知（抗杠杆化思想）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E7%9A%84%E6%9C%80%E5%90%8E%EF%BC%8C%E4%B8%80%E5%88%87%E9%83%BD%E7%A6%BB%E4%B8%8D%E5%BC%80%E6%97%B6%E9%97%B4%E7%9A%84%E6%B2%89%E6%B7%80%EF%BC%8C%E8%A6%81%E5%B0%86%E9%95%BF%E6%9C%9F%E4%B8%BB%E4%B9%89%E5%88%BB%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%BD%9C%E6%84%8F%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">最后的最后，一切都离不开时间的沉淀，要将长期主义刻进自己的潜意识</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
