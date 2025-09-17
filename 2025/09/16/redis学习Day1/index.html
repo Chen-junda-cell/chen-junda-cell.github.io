@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chenjunda"><meta name="renderer" content="webkit"><meta name="copyright" content="chenjunda"><meta name="keywords" content="陈小达的个人博客"><meta name="description" content="学习笔记"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>redis学习Day1 · 陈小达的博客</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">chenjunda</div><div class="profile-signature">长期主义</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">陈小达的博客</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">redis学习Day1</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2025-09-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="redis"> redis</a></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="1-为什么使用redis？"><a href="#1-为什么使用redis？" class="headerlink" title="1.为什么使用redis？"></a>1.为什么使用redis？</h1><h2 id="1-1Redis-具备高性能"><a href="#1-1Redis-具备高性能" class="headerlink" title="1.1Redis 具备高性能"></a>1.1Redis 具备高性能</h2><p>操作数据库是在硬盘上操作，但是操作redis就可以直接读取缓存，是在内存中操作的</p>
+<h2 id="1-2、-Redis-具备高并发"><a href="#1-2、-Redis-具备高并发" class="headerlink" title="1.2、 Redis 具备高并发"></a>1.2、 Redis 具备高并发</h2><p>单台设备的 Redis 的 QPS（Query Per Second，每秒钟处理完请求的次数） 是 MySQL 的 10 倍，Redis 单机的 QPS 能轻松破 10w，而 MySQL 单机的 QPS 很难破 1w。</p>
+<h1 id="2-如何保证-redis-和-mysql-数据缓存一致性问题？"><a href="#2-如何保证-redis-和-mysql-数据缓存一致性问题？" class="headerlink" title="2.如何保证 redis 和 mysql 数据缓存一致性问题？"></a>2.如何保证 redis 和 mysql 数据缓存一致性问题？</h1><h2 id="2-1消息队列方案"><a href="#2-1消息队列方案" class="headerlink" title="2.1消息队列方案"></a>2.1消息队列方案</h2><p>我们可以引入<strong>消息队列</strong>，将第二个操作（删除缓存）要操作的数据加入到消息队列，由消费者来操作数据。</p>
+<ul>
+<li>如果应用<strong>删除缓存失败</strong>，可以从消息队列中重新读取数据，然后再次删除缓存，这个就是<strong>重试机制</strong>。当然，如果重试超过的一定次数，还是没有成功，我们就需要向业务层发送报错信息了。</li>
+<li>如果<strong>删除缓存成功</strong>，就要把数据从消息队列中移除，避免重复操作，否则就继续重试。</li>
+</ul>
+<p>重试删除缓存机制还可以，就是会<strong>造成好多业务代码入侵</strong>。</p>
+<h2 id="2-2先更新数据库，再删缓存"><a href="#2-2先更新数据库，再删缓存" class="headerlink" title="2.2先更新数据库，再删缓存"></a>2.2<strong>先更新数据库，再删缓存</strong></h2><p>「<strong>先更新数据库，再删缓存</strong>」的策略的第一步是更新数据库，那么更新数据库成功，就会产生一条变更日志，记录在 binlog 里。</p>
+<p>于是我们就可以通过订阅 binlog 日志，拿到具体要操作的数据，然后再执行缓存删除，阿里巴巴开源的 Canal 中间件就是基于这个实现的。</p>
+<p>Canal 模拟 MySQL 主从复制的交互协议，把自己伪装成一个 MySQL 的从节点，向 MySQL 主节点发送 dump 请求，MySQL 收到请求后，就会开始推送 Binlog 给 Canal，Canal 解析 Binlog 字节流之后，转换为便于读取的结构化数据，供下游程序订阅使用</p>
+<h1 id="3-缓存雪崩、击穿、穿透是什么？怎么解决？"><a href="#3-缓存雪崩、击穿、穿透是什么？怎么解决？" class="headerlink" title="3.缓存雪崩、击穿、穿透是什么？怎么解决？"></a>3.缓存雪崩、击穿、穿透是什么？怎么解决？</h1><h2 id="3-1是什么"><a href="#3-1是什么" class="headerlink" title="3.1是什么"></a>3.1是什么</h2><p><strong>缓存雪崩</strong>：</p>
+<p>​	是指大量缓存数据在同一时间集体失效，或者redis挂了，导致大量请求访问到数据库，导致数据库压力过大崩溃</p>
+<p><strong>缓存击穿</strong>：</p>
+<p>​	是指某一个热点key过期后，大量该key的请求访问到数据库，导致数据库压力过大，</p>
+<p><strong>缓存穿透</strong>：</p>
+<p>​	是指该请求在redis缓存中找不到，然后在数据库中也找不到，这样的无效请求大量请求过来，对数据库造成攻击</p>
+<h2 id="3-2怎么解决"><a href="#3-2怎么解决" class="headerlink" title="3.2怎么解决"></a>3.2怎么解决</h2><p><strong>缓存雪崩怎么解决</strong>：</p>
+<ul>
+<li>均匀设置过期时间：如果要给缓存数据设置过期时间，应该避免将大量的数据设置成同一个过期时间。我们可以在对缓存数据设置过期时间时，<strong>给这些数据的过期时间加上一个随机数</strong>，这样就保证数据不会在同一时间过期。</li>
+</ul>
+<p><strong>缓存击穿怎么解决</strong>：</p>
+<ul>
+<li><p>方法一：使用锁来解决，当一个线程到达热点key的时候，就去获取锁，然后后面的线程只有锁释放的时候才能继续访问</p>
+</li>
+<li><p>方法二：设置逻辑过期时间，实际过期时间设置为永不过期，当一个线程获得锁的时候，开启额外线程，完成数据重构的操作，其他的线程在没有获得锁的时候，只返回旧数据，好处是不用让那么多线程等着了，效率会变高，但缺点是返回的数据不能保证高度一致</p>
+</li>
+</ul>
+<p><strong>缓存穿透怎么解决</strong>：</p>
+<ul>
+<li><p>**缓存空对象思路分析：**当我们客户端访问不存在的数据时，先请求redis，但是此时redis中没有数据，此时会访问到数据库，但是数据库中也没有数据，这个数据穿透了缓存，直击数据库，我们都知道数据库能够承载的并发不如redis这么高，如果大量的请求同时过来访问这种不存在的数据，这些请求就都会访问到数据库，简单的解决方案就是哪怕这个数据在数据库中也不存在，我们也把这个数据存入到redis中去，这样，下次用户过来访问这个不存在的数据，那么在redis中也能找到这个数据就不会进入到缓存了</p>
+</li>
+<li><p>**布隆过滤：**布隆过滤器其实采用的是哈希思想来解决这个问题，通过一个庞大的二进制数组，走哈希思想去判断当前这个要查询的这个数据是否存在，如果布隆过滤器判断存在，则放行，这个请求会去访问redis，哪怕此时redis中的数据过期了，但是数据库中一定存在这个数据，在数据库中查询出来这个数据后，再将其放入到redis中，</p>
+<p>假设布隆过滤器判断这个数据不存在，则直接返回</p>
+<p>这种方式优点在于节约内存空间，存在误判，误判原因在于：布隆过滤器走的是哈希思想，只要哈希思想，就可能存在哈希冲突</p>
+</li>
+</ul>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://example.com">chenjunda</a></p><p> <span>Link:  </span><a href="http://example.com/2025/09/16/redis%E5%AD%A6%E4%B9%A0Day1/">http://example.com/2025/09/16/redis%E5%AD%A6%E4%B9%A0Day1/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2025/08/18/%E5%A4%96%E5%8D%96%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="测试基础"><span>NextPost ></span><br><span class="nextTitle">测试基础</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8redis%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1.为什么使用redis？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1Redis-%E5%85%B7%E5%A4%87%E9%AB%98%E6%80%A7%E8%83%BD"><span class="toc-number">1.1.</span> <span class="toc-text">1.1Redis 具备高性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2%E3%80%81-Redis-%E5%85%B7%E5%A4%87%E9%AB%98%E5%B9%B6%E5%8F%91"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、 Redis 具备高并发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81-redis-%E5%92%8C-mysql-%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">2.如何保证 redis 和 mysql 数据缓存一致性问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%96%B9%E6%A1%88"><span class="toc-number">2.1.</span> <span class="toc-text">2.1消息队列方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E5%85%88%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E5%86%8D%E5%88%A0%E7%BC%93%E5%AD%98"><span class="toc-number">2.2.</span> <span class="toc-text">2.2先更新数据库，再删缓存</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">3.缓存雪崩、击穿、穿透是什么？怎么解决？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">3.1.</span> <span class="toc-text">3.1是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="toc-number">3.2.</span> <span class="toc-text">3.2怎么解决</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
