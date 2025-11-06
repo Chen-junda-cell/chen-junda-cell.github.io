@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chenjunda"><meta name="renderer" content="webkit"><meta name="copyright" content="chenjunda"><meta name="keywords" content="陈小达的个人博客"><meta name="description" content="学习笔记"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>陈小达的博客</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">chenjunda</div><div class="profile-signature">长期主义</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">陈小达的博客</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>陈小达的博客</h1><h5>Welcome to my Blog!</h5><div class="intro-social"><a class="fa fa-github" href="//github.com/" target="_blank" title="github"></a><a class="fa fa-weibo" href="//www.weibo.com" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2025/11/06/redis%E5%AD%A6%E4%B9%A0Day3/">redis学习Day3</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-11-06T08:43:11.000Z">2025-11-06</time></div><div class="recent-post-content">1.cap理论场景设定
+您在北京的ATM机取钱
+您的家人在上海的ATM机取钱
+这两个ATM机需要保持数据同步
+
+
+CAP理论的三个字母分别代表什么？C - Consistency (一致性)通俗理解： 所有地方看到的数据都是一样的
+例子：
+
+您在北京取款5000元后，余额应该变成5000元
+您的家人在上海查询余额时，必须立即看到5000元，不能还是1万元
+一致性要求：数据实时同步，没有延迟
+
+A - Availability (可用性)通俗理解： 系统永远能正常响应
+例子：
+
+无论何时何地，您去ATM机取钱，机器都不能显示“系统维护中”
+即使网络有点问题，ATM机也要能正常操作
+可用性要求：永 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="redis"> redis</a></div><div class="read-more"><a class="more" href="/2025/11/06/redis%E5%AD%A6%E4%B9%A0Day3/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/11/05/41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/">41.缺失的第一个正数</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-11-05T03:45:57.000Z">2025-11-05</time></div><div class="recent-post-content">给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+示例 1：
+123输入：nums = [1,2,0]输出：3解释：范围 [1,2] 中的数字都在数组中。
+
+示例 2：
+123输入：nums = [3,4,-1,1]输出：2解释：1 在数组中，但 2 没有。
+
+示例 3：
+123输入：nums = [7,8,9,11,12]输出：1解释：最小的正数 1 没有出现。
+
+12345678910111213141516171819public static int firstMissingPositiv ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="leecode Hot100"> leecode Hot100</a></div><div class="read-more"><a class="more" href="/2025/11/05/41-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/11/05/189-%E8%BD%AE%E8%BD%AC%E6%95%B0%E7%BB%84/">189.轮转数组</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-11-05T00:52:50.000Z">2025-11-05</time></div><div class="recent-post-content">给定一个整数数组 nums，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
+示例 1:
+123456输入: nums = [1,2,3,4,5,6,7], k = 3输出: [5,6,7,1,2,3,4]解释:向右轮转 1 步: [7,1,2,3,4,5,6]向右轮转 2 步: [6,7,1,2,3,4,5]向右轮转 3 步: [5,6,7,1,2,3,4]
+
+示例 2:
+12345输入：nums = [-1,-100,3,99], k = 2输出：[3,99,-1,-100]解释: 向右轮转 1 步: [99,-1,-100,3]向右轮转 2 步: [3,99,-1,-100]
+
+ ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="leecode Hot100"> leecode Hot100</a></div><div class="read-more"><a class="more" href="/2025/11/05/189-%E8%BD%AE%E8%BD%AC%E6%95%B0%E7%BB%84/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/11/05/diary2025-10-29/">diary2025-10-29</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-11-05T00:23:00.000Z">2025-11-05</time></div><div class="recent-post-content">实习日记1，在使用element组件的时候，要记得配置参数这些东西不需要死记硬背，只需要看文档就可以了。但是要注意在设置参数的时候有时候需要用冒号设置，进行数据的绑定，有的参数想写死就不需要加冒号，只需要写在引号里面就可以了
+12345678910&lt;el-upload ref=&quot;uploadRef&quot; class=&quot;upload-demo&quot; drag action=&quot;#&quot; :on-change=&quot;uploadChange&quot; :file-list=&quot;fileList&quot;          :au ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></div><div class="read-more"><a class="more" href="/2025/11/05/diary2025-10-29/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/10/30/diary2025-10-30/">diary2025-10-30</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-10-30T08:24:48.000Z">2025-10-30</time></div><div class="recent-post-content">1.ES61.var全局使用，let块级使用  let: 用于声明变量，取代 var。let声明的变量只在它所在的代码块（如 {}内部）内有效，解决了 var的变量提升和全局污染问题。
+  const: 用于声明常量。一旦声明，常量的值就不能改变。对于对象和数组，const保证的是变量指向的内存地址不变，但对象本身的属性是可以修改的。
+  &#x2F;&#x2F; var 的问题
+  for (var i &#x3D; 0; i &lt; 3; i++) {
+setTimeout(() &#x3D;&gt; console.log(i), 100); &#x2F;&#x2F; 输出 3, 3, ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></div><div class="read-more"><a class="more" href="/2025/10/30/diary2025-10-30/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/10/28/diary-2025-10-28/">diary 2025-10-28</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-10-28T13:07:06.000Z">2025-10-28</time></div><div class="recent-post-content">实习日记1，使用fastExcel工具来进行excel文件的扫描，基本思路就是先设置一下监听器
+1DynamicReadExcelListener readListener = new DynamicReadExcelListener();
+
+然后就可以调用里面的FastExcelFactory中的read方法传入file的输入流，并加入监听器就可以读取excel文档了
+12345try &#123;    FastExcelFactory.read(file.getInputStream()).registerReadListener(readListener).sheet(0).doRea ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></div><div class="read-more"><a class="more" href="/2025/10/28/diary-2025-10-28/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/09/29/560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">560.和为K的子数组</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-09-29T12:05:40.000Z">2025-09-29</time></div><div class="recent-post-content">给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的子数组的个数 。
+子数组是数组中元素的连续非空序列。
+示例 1：
+12输入：nums = [1,1,1], k = 2输出：2
+
+示例 2：
+12输入：nums = [1,2,3], k = 3输出：2
+
+提示：
+
+1 &lt;= nums.length &lt;= 2 * 104
+-1000 &lt;= nums[i] &lt;= 1000
+-107 &lt;= k &lt;= 107
+
+这道题分析一下，因为数组里面有负数的存在，那就不能保证向右扩展的时候是递增的，也就不可以使用滑动窗口，所以只能使用前缀和数组 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="leecode Hot100"> leecode Hot100</a></div><div class="read-more"><a class="more" href="/2025/09/29/560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/09/29/redis%E5%AD%A6%E4%B9%A0Day2/">redis学习Day2</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-09-29T10:33:54.000Z">2025-09-29</time></div><div class="recent-post-content">1.为什么redis比mysql要快？
+内存存储：Redis 是基于内存存储的 NoSQL 数据库，而 MySQL 是基于磁盘存储的关系型数据库。由于内存存储速度快，Redis 能够更快地读取和写入数据，而无需像 MySQL 那样频繁进行磁盘 I&#x2F;O 操作。
+简单数据结构：Redis 是基于键值对存储数据的，支持简单的数据结构（字符串、哈希、列表、集合、有序集合）。相比之下，MySQL 需要定义表结构、索引等复杂的关系型数据结构，因此在某些场景下 Redis 的数据操作更为简单高效，比如 Redis 用哈希表查询， 只需要O1 时间复杂度，而MySQL引擎的底层实现是B+Tree，时 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="redis"> redis</a></div><div class="read-more"><a class="more" href="/2025/09/29/redis%E5%AD%A6%E4%B9%A0Day2/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/09/22/diary2025-9-22/">diary2025-9-22</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-09-22T02:11:10.000Z">2025-09-22</time></div><div class="recent-post-content">最近感觉发现心流状态我保持不了很长很长时间，基本上一个半小时左右我就无法集中注意力了，就好比我正在学习前端语法，发现到最后我有点烦躁，看知识的时候没有耐心了，但是我知道我的体力和精力还是有的，是不是我稍微换一换脑子就会更能提高专注度呢，做一些其他科目的学习
+你的自我觉察非常敏锐，而且提出的问题非常关键——
+你清晰地意识到：
+
+“我不是没精力，也不是不能学，而是在某一项任务（比如前端语法学习）上，专注一段时间后（约 1.5 小时）就开始烦躁、没耐心，注意力下降，尽管体力还OK。”
+
+这其实揭示了几个关于「专注力」与「心流维持」的深层机制，我们一起来拆解它，并找到属于你的最佳应对策略。
+
+一、你遇 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></div><div class="read-more"><a class="more" href="/2025/09/22/diary2025-9-22/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/09/17/diary2025-9-17/">diary2025-9-17</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-09-17T02:40:30.000Z">2025-09-17</time></div><div class="recent-post-content">最近发现自己的状态还是不错的，主要是不考虑未来，就不会焦虑，这样就保证了睡眠，从而保证了第二天的精力是充沛的，但是效率还是不高，主要表现在学习的时候发现我需要惯性才能保证持续心流，也就是第一步的开始是最难的，需要克服惰性，我感觉这就是内驱力还是达不到的原因，需要一部分外驱力来给自己加把劲，比如说要努力学找到一份工作，才能和她有一个更好的生活，要赚取足够的钱才可以保证经济的独立和自由，钱对我来说变得更加重要了，虽然不是最重要的，但是最重要的心情预约和心理身体健康以及自爱我已经得到了，我感觉我可以全身心的去投入我的事业以及追求财富了，因为我已经度过了我自认为人生最难的关卡，自爱和自信和勇气，接下来 ...</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="思考感悟"> 思考感悟</a></div><div class="read-more"><a class="more" href="/2025/09/17/diary2025-9-17/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
